@@ -1,9 +1,8 @@
-const puppeteer = require("puppeteer");
-const $ = require("cheerio");
-const url = "https://www.oneplace.com/ministries/adventures-in-odyssey/listen/";
-const tag = "ul.episodesList.accordion-content li a";
+const puppeteer = require("puppeteer"),
+  $ = require("cheerio");
+require("dotenv").config();
 
-const getURLArray = async () => {
+const getURLArray = async (url, tag) => {
   try {
     const episodeURLs = [];
     const browser = await puppeteer.launch();
@@ -39,14 +38,9 @@ const getAudioURL = async (sourceHTML) => {
 };
 
 const main = async () => {
-  const arr = await getURLArray();
+  const arr = await getURLArray(process.env.URL, process.env.TAG);
   console.log(arr);
-  //   const array = arr.map(async (element) => {
-  //     return await getAudioURL(element);
-  //   });
-
   console.log(await getAudioURL(arr[0]));
-  //   console.log(array);
 };
 
 main();
