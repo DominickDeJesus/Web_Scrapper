@@ -18,6 +18,8 @@
   },
   "proxy": "http://localhost:8080",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "dev2": "nodemon server.js && cd client && react-scripts start"
   }
 }
