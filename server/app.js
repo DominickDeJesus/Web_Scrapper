@@ -7,9 +7,11 @@ const express = require("express"),
   cron = require("node-cron");
 const app = express();
 
-cron.schedule("0 0 * * *", function () {
-  console.log("Task ran at " + Date.now());
-});
+// cron.schedule("0 0 * * *", function () {
+//   console.log("Task ran at " + Date.now());
+// });
+
+addTrackToDB()
 
 app.use(openRoutes);
 

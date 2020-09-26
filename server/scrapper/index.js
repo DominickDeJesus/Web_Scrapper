@@ -1,6 +1,11 @@
 const puppeteer = require("puppeteer"),
-  $ = require("cheerio");
+  $ = require("cheerio"),
+  URL="https://www.oneplace.com/ministries/adventures-in-odyssey/listen",
+  TAG="ul.episodesList.accordion-content li a",
+  Track = require('../models/track');
 require("dotenv").config();
+
+
 
 const getURLArray = async (url, tag) => {
   try {
@@ -21,26 +26,35 @@ const getURLArray = async (url, tag) => {
   }
 };
 
-const getAudioURL = async (sourceHTML) => {
+const getTrackObj = async (sourceHTML) => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     const html = await page.goto(sourceHTML).then(function () {
       return page.content();
     });
+    const trackObj = {}
+    trackObj.url = $("audio", html).attr("src");
+    trackObj.title = $("div.overlay2 h2", html).text();
+    trackObj.description = $("div.description p", html).text();
 
-    return $("audio", html).attr("src");
+    const track = new Track(trackObj);
+
+    track.save()
+    console.log(track)
   } catch (error) {
     console.log(error);
   }
-
-  return url;
 };
 
 const addTrackToDB = async () => {
-  const arr = await getURLArray(process.env.URL, process.env.TAG);
-  console.log(arr);
-  console.log(await getAudioURL(arr[0]));
+  try {
+    const arr = await getURLArray(URL, TAG);
+    await getTrackObj(arr[0].toString());
+  } catch (error) {
+    console.log(error)
+  }
+
 };
 
 module.exports = addTrackToDB;
