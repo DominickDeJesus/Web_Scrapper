@@ -2,9 +2,14 @@ require("./db/config");
 
 const express = require("express"),
   openRoutes = require("./routes/open/tracks"),
-  path = require("path");
-
+  path = require("path"),
+  addTrackToDB = require("./scrapper/index"),
+  cron = require("node-cron");
 const app = express();
+
+cron.schedule("0 0 * * *", function () {
+  console.log("Task ran at " + Date.now());
+});
 
 app.use(openRoutes);
 

@@ -37,10 +37,10 @@ const getAudioURL = async (sourceHTML) => {
   return url;
 };
 
-const main = async () => {
+const addTrackToDB = async () => {
   const arr = await getURLArray(process.env.URL, process.env.TAG);
   console.log(arr);
   console.log(await getAudioURL(arr[0]));
 };
 
-main();
+module.exports = addTrackToDB;
