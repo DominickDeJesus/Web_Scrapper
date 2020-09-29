@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 
 const Player = () => {
-  const [tracks, setTracks] = useState([]);
+  const { tracks, setTracks } = useContext(AppContext);
 
   useEffect(() => {
     async function get() {
