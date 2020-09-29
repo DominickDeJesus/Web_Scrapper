@@ -8,7 +8,7 @@ const express = require('express'),
 const app = express();
 
 try {
-  cron.schedule('0 0 * * *', function () {
+  cron.schedule('0 16 * * *', function () {
     addTrackToDB();
     console.log('AddedTrack ran at ' + Date.now());
   });
