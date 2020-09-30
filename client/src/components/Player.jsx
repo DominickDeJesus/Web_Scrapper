@@ -10,10 +10,12 @@ const Player = ({ track }) => {
       <p>{track?.description}</p>
       <audio
         controls
+        autoPlay={true}
         key={track?._id}
         className="m-3"
-        onEnded={(_, index) => {
-          setTracks(tracks?.filter(() => index !== 0));
+        onEnded={() => {
+          console.log(tracks?.filter((_, index) => index > 0));
+          setTracks(tracks?.filter((_, index) => index > 0));
         }}
       >
         <source src={track?.url} type="audio/mp3" />

@@ -8,6 +8,7 @@ import axios from 'axios';
 const Home = () => {
   const { tracks, setTracks } = useContext(AppContext);
   const [queuePosition, setQueuePosition] = useState(0);
+
   useEffect(() => {
     async function get() {
       try {
