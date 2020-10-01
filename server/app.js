@@ -8,6 +8,9 @@ const express = require('express'),
 const app = express();
 
 try {
+  //run the first time server starts
+  addTrackToDB();
+  //runs every day at 4pm
   cron.schedule('0 16 * * *', function () {
     addTrackToDB();
     console.log('AddedTrack ran at ' + Date.now());
