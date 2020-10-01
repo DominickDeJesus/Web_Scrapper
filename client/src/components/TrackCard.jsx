@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { AiFillPlayCircle, AiOutlinePlus } from 'react-icons/ai';
+import { FaPlay, FaPlus } from 'react-icons/fa';
 
 const TrackCard = ({ track, handleClick }) => {
   return (
@@ -9,7 +9,7 @@ const TrackCard = ({ track, handleClick }) => {
         variant="flat"
         className="mr-auto d-flex justify-content-center align-items-center"
       >
-        <AiFillPlayCircle />
+        <FaPlay />
       </Button>
       <div>{track.title}</div>
       <Button
@@ -18,7 +18,7 @@ const TrackCard = ({ track, handleClick }) => {
         variant="flat"
         name={track?._id}
       >
-        <AiOutlinePlus></AiOutlinePlus>
+        <FaPlus />
       </Button>
     </div>
   );
