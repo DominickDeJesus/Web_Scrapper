@@ -4,6 +4,7 @@ import Player from '../components/Player';
 import { AppContext } from '../context/AppContext';
 import TrackCard from '../components/TrackCard';
 import axios from 'axios';
+import { BsSkipEndFill, BsFillSkipStartFill } from 'react-icons/bs';
 
 const Home = () => {
   const { tracks, setTracks } = useContext(AppContext);
@@ -50,10 +51,14 @@ const Home = () => {
 
   return (
     <Container className="d-flex flex-column align-items-center">
-      <Player track={tracks[queuePosition]} />
-      <div>
-        <Button onClick={handleGoBack}>GoBack</Button>
-        <Button onClick={handleSkip}>Skip</Button>
+      <div className="d-flex">
+        <Button variant="flat" className="border" onClick={handleGoBack}>
+          <BsFillSkipStartFill />
+        </Button>
+        <Player track={tracks[queuePosition]} />
+        <Button variant="flat" className="border" onClick={handleSkip}>
+          <BsSkipEndFill />
+        </Button>
       </div>
       {tracks?.map((track, ind) => {
         return <TrackCard track={track} key={ind} handleClick={handleClick} />;
