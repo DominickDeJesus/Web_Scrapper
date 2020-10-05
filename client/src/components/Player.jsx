@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Player = ({ track }) => {
-  const { tracks, setTracks } = useContext(AppContext);
+  const { queuePosition, setQueuePosition } = useContext(AppContext);
 
   return (
     <div>
@@ -14,8 +14,7 @@ const Player = ({ track }) => {
         key={track?._id}
         className="m-3"
         onEnded={() => {
-          console.log(tracks?.filter((_, index) => index > 0));
-          setTracks(tracks?.filter((_, index) => index > 0));
+          setQueuePosition(queuePosition + 1);
         }}
       >
         <source src={track?.url} type="audio/mp3" />

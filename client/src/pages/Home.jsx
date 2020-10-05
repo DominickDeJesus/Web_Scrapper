@@ -7,8 +7,9 @@ import axios from 'axios';
 import { BsSkipEndFill, BsFillSkipStartFill } from 'react-icons/bs';
 
 const Home = () => {
-  const { tracks, setTracks } = useContext(AppContext);
-  const [queuePosition, setQueuePosition] = useState(0);
+  const { tracks, setTracks, queuePosition, setQueuePosition } = useContext(
+    AppContext
+  );
 
   useEffect(() => {
     async function get() {
