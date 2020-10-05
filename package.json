@@ -1,7 +1,7 @@
 {
   "name": "scrapper",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "engines": {
     "node": "14.x.x"
