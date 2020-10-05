@@ -50,7 +50,7 @@ const Home = () => {
   };
 
   return (
-    <Container className="d-flex flex-column align-items-center">
+    <Container className="d-flex flex-column align-items-center pt-4">
       <div className="d-flex">
         <Button variant="flat" className="border" onClick={handleGoBack}>
           <BsFillSkipStartFill />
