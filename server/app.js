@@ -7,17 +7,14 @@ const express = require('express'),
   cron = require('node-cron');
 const app = express();
 
-try {
-  //run the first time server starts
+//run the first time server starts
+addTrackToDB();
+
+//runs every day at 4pm
+cron.schedule('0 16 * * *', function () {
   addTrackToDB();
-  //runs every day at 4pm
-  cron.schedule('0 16 * * *', function () {
-    addTrackToDB();
-    console.log('AddedTrack ran at ' + Date.now());
-  });
-} catch (error) {
-  console.log(error);
-}
+  console.log('AddedTrack ran at ' + Date.now());
+});
 
 app.use(openRoutes);
 
