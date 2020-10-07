@@ -40,8 +40,12 @@ const getTrackObj = async (sourceHTML) => {
 };
 
 const addTrackToDB = async () => {
-  const arr = await getURLArray(URL, TAG);
-  return await getTrackObj(arr[0].toString());
+  try {
+    const arr = await getURLArray(URL, TAG);
+    return await getTrackObj(arr[0].toString());
+  } catch (error) {
+    console.log(error.toString());
+  }
 };
 
 module.exports = addTrackToDB;
