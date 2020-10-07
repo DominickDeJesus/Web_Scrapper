@@ -36,20 +36,6 @@ const Home = () => {
     }
   };
 
-  const handleClick = (event) => {
-    const obj = tracks.find(
-      (track) => String(track._id) === String(event.target.name)
-    );
-    console.log(obj);
-    const index = tracks.indexOf(obj);
-    console.log(index);
-    console.log(event.target.name);
-    if (index !== -1) {
-      setTracks([...tracks, tracks[index]]);
-      console.log(tracks);
-    }
-  };
-
   return (
     <Container className="d-flex flex-column align-items-center pt-4">
       <div className="d-flex">
@@ -62,7 +48,7 @@ const Home = () => {
         </Button>
       </div>
       {tracks?.map((track, ind) => {
-        return <TrackCard track={track} key={ind} handleClick={handleClick} />;
+        return <TrackCard track={track} key={ind} />;
       })}
     </Container>
   );
