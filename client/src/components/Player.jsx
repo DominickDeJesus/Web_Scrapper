@@ -10,9 +10,9 @@ const Player = ({ track }) => {
       <p>{track?.description}</p>
       <audio
         controls
-        autoPlay={true}
+        autoPlay={false}
         key={track?._id}
-        className="m-3"
+        className="m-3 w-75"
         onEnded={() => {
           setQueuePosition(queuePosition + 1);
         }}
