@@ -8,10 +8,14 @@ import { BsSkipEndFill, BsFillSkipStartFill } from 'react-icons/bs';
 import { useState } from 'react';
 
 const Home = () => {
-  const { tracks, setTracks, queuePosition, setQueuePosition } = useContext(
-    AppContext
-  );
-  const [queue, setQueue] = useState();
+  const {
+    tracks,
+    setTracks,
+    queuePosition,
+    setQueuePosition,
+    queue,
+    setQueue
+  } = useContext(AppContext);
   const [page, setPage] = useState(1);
   const limit = 7;
 
@@ -27,6 +31,33 @@ const Home = () => {
     }
     get();
   }, [setTracks]);
+
+  const getNextPage = async (event) => {
+    try {
+      const resp = await axios.get(
+        `/api/tracks?limit=${limit}&skip=${(page + 1) * limit}`
+      );
+      if (resp.data.length >= limit) {
+        console.log(resp.data);
+        setPage(page + 1);
+        setTracks(resp.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPreviousPage = async (event) => {
+    try {
+      const resp = await axios.get(
+        `/api/tracks?limit=${limit}&skip=${page - 1}`
+      );
+      setTracks(resp.data);
+      setPage(page - 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSkip = () => {
     if (queuePosition < tracks.length - 1) {
@@ -51,27 +82,27 @@ const Home = () => {
         </Button>
       </div>
 
-      <Tabs defaultActiveKey="queue" className="w-75">
-        <Tab eventKey="queue" title="Queue" className="w-100">
-          {tracks?.map((track, ind) => {
-            return <TrackCard track={track} key={ind} />;
-          })}
-        </Tab>
-        <Tab eventKey="archive" title="Archive" className="w-100">
+      <Tabs defaultActiveKey="queue" className="w-100">
+        <Tab.Body eventKey="queue" title="Queue" className="w-100">
           {queue?.map((track, ind) => {
             return <TrackCard track={track} key={ind} />;
           })}
+        </Tab.Body>
+        <Tab eventKey="archive" title="Archive" className="w-100">
+          {tracks?.map((track, ind) => {
+            return <TrackCard track={track} key={ind} />;
+          })}
+          <Pagination>
+            <Pagination.Prev
+              onClick={() => {
+                if (page > 1) getPreviousPage();
+              }}
+            />
+            <Pagination.Item active>{page}</Pagination.Item>
+            <Pagination.Next onClick={getNextPage} />
+          </Pagination>
         </Tab>
       </Tabs>
-      <Pagination>
-        <Pagination.Prev
-          onClick={() => {
-            if (page > 1) setPage(page - 1);
-          }}
-        />
-        <Pagination.Item active>{page}</Pagination.Item>
-        <Pagination.Next onClick={() => setPage(page + 1)} />
-      </Pagination>
     </Container>
   );
 };

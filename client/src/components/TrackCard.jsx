@@ -3,21 +3,21 @@ import { Button } from 'react-bootstrap';
 import { FaPlay, FaPlus } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
 const TrackCard = ({ track }) => {
-  const { tracks, setTracks } = useContext(AppContext);
+  const { tracks, setTracks, queue, setQueue } = useContext(AppContext);
 
   const handleClick = (event) => {
-    console.log(event.currentTarget);
-    console.log(tracks, event.currentTarget.getAttribute('name'));
-    const obj = tracks.find(
-      (track) => String(track._id) === String(event.currentTarget.name)
-    );
-    console.log(obj);
+    const obj = tracks.find((track) => track._id === event.currentTarget.name);
     const index = tracks.indexOf(obj);
-    console.log(index);
-    console.log(event.currentTarget.name);
     if (index !== -1) {
       setTracks([...tracks, tracks[index]]);
       console.log(tracks);
+    }
+  };
+  const handlePlayClick = (event) => {
+    const obj = tracks.find((track) => track._id === event.currentTarget.name);
+    const index = tracks.indexOf(obj);
+    if (index !== -1) {
+      setTracks([tracks[index], ...tracks]);
     }
   };
 
@@ -26,6 +26,7 @@ const TrackCard = ({ track }) => {
       <Button
         variant="flat"
         className="mr-auto d-flex justify-content-center align-items-center"
+        onClick={handlePlayClick}
       >
         <FaPlay />
       </Button>
