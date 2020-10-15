@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaPlay, FaPlus } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
-const TrackCard = ({ track }) => {
+const TrackCard = ({ track, playing }) => {
   const { tracks, setTracks, queue, setQueue } = useContext(AppContext);
 
   const handleClick = (event) => {
@@ -22,7 +22,11 @@ const TrackCard = ({ track }) => {
   };
 
   return (
-    <div className="d-flex flex-direction-row w-100 border m-2 p-1">
+    <div
+      className={`d-flex flex-direction-row w-100 border m-2 p-1 ${
+        playing ? 'playing' : ''
+      }`}
+    >
       <Button
         variant="flat"
         className="mr-auto d-flex justify-content-center align-items-center"
