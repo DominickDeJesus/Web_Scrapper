@@ -30,13 +30,14 @@ const Home = () => {
       }
     }
     get();
-  }, [setTracks]);
+  }, [setTracks, setQueue]);
 
   const getNextPage = async (event) => {
     try {
       const resp = await axios.get(
-        `/api/tracks?limit=${limit}&skip=${(page + 1) * limit}`
+        `/api/tracks?limit=${limit}&skip=${page * limit}`
       );
+      console.log(resp.data);
       if (resp.data.length >= limit) {
         console.log(resp.data);
         setPage(page + 1);
@@ -50,7 +51,7 @@ const Home = () => {
   const getPreviousPage = async (event) => {
     try {
       const resp = await axios.get(
-        `/api/tracks?limit=${limit}&skip=${page - 1}`
+        `/api/tracks?limit=${limit}&skip=${(page - 2) * limit}`
       );
       setTracks(resp.data);
       setPage(page - 1);
@@ -72,11 +73,11 @@ const Home = () => {
 
   return (
     <Container className="d-flex flex-column align-items-center pt-4">
-      <div className="d-flex">
+      <div className="d-flex mb-4" style={{ height: '15rem' }}>
         <Button variant="flat" className="border" onClick={handleGoBack}>
           <BsFillSkipStartFill />
         </Button>
-        <Player track={tracks[queuePosition]} />
+        <Player track={queue[queuePosition]} />
         <Button variant="flat" className="border" onClick={handleSkip}>
           <BsSkipEndFill />
         </Button>
@@ -85,14 +86,16 @@ const Home = () => {
       <Tabs defaultActiveKey="queue" className="w-100">
         <Tab.Body eventKey="queue" title="Queue" className="w-100">
           {queue?.map((track, ind) => {
-            return <TrackCard track={track} key={ind} />;
+            if (ind === queuePosition)
+              return <TrackCard track={track} key={ind} playing={true} />;
+            return <TrackCard track={track} key={ind} playing={false} />;
           })}
         </Tab.Body>
         <Tab eventKey="archive" title="Archive" className="w-100">
           {tracks?.map((track, ind) => {
             return <TrackCard track={track} key={ind} />;
           })}
-          <Pagination>
+          <Pagination className="d-flex justify-content-center">
             <Pagination.Prev
               onClick={() => {
                 if (page > 1) getPreviousPage();

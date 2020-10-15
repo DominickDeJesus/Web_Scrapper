@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+/* play button*/
+
+.playing {
+  color: #ffffff;
+  background-color: #007bff;
+}

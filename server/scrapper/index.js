@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer'),
   $ = require('cheerio'),
   URL = 'https://www.oneplace.com/ministries/adventures-in-odyssey/listen',
   TAG = 'ul.episodesList.accordion-content li a',
-  Track = require('../models/track');
+  Track = require('../db/models/track');
 require('dotenv').config();
 
 const getURLArray = async (url, tag) => {

@@ -1,4 +1,4 @@
-const Track = require('../../models/track'),
+const Track = require('../../db/models/track'),
   router = require('express').Router(),
   addTrackToDB = require('../../scrapper/index');
 
@@ -18,9 +18,9 @@ router.get('/api/tracks', async (req, res) => {
     if (req.query.limit) limit = parseInt(req.query.limit);
     if (req.query.skip) skip = parseInt(req.query.skip);
     const tracks = await Track.find({})
+      .skip(skip)
       .limit(limit)
-      .sort('-createdOn')
-      .skip(skip);
+      .sort('-createdOn');
     res.json(tracks);
   } catch (error) {
     console.log(error);

@@ -5,14 +5,16 @@ const Player = ({ track }) => {
   const { queuePosition, setQueuePosition } = useContext(AppContext);
 
   return (
-    <div>
+    <div className="d-flex flex-column">
       <h3>{track?.title}</h3>
-      <p>{track?.description}</p>
+      <p style={{ textAlign: 'left', padding: '2rem' }} className="my-auto">
+        {track?.description}
+      </p>
       <audio
         controls
         autoPlay={false}
         key={track?._id}
-        className="m-3 w-75"
+        className="w-75 mx-auto"
         onEnded={() => {
           setQueuePosition(queuePosition + 1);
         }}
