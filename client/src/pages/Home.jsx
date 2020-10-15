@@ -17,7 +17,7 @@ const Home = () => {
     setQueue
   } = useContext(AppContext);
   const [page, setPage] = useState(1);
-  const limit = 7;
+  const limit = 10;
 
   useEffect(() => {
     async function get() {
@@ -35,8 +35,9 @@ const Home = () => {
   const getNextPage = async (event) => {
     try {
       const resp = await axios.get(
-        `/api/tracks?limit=${limit}&skip=${(page + 1) * limit}`
+        `/api/tracks?limit=${limit}&skip=${(page - 1) * limit}`
       );
+      console.log(resp.data);
       if (resp.data.length >= limit) {
         console.log(resp.data);
         setPage(page + 1);
