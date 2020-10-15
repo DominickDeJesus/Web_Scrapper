@@ -32,7 +32,7 @@ const TrackCard = ({ track, playing }) => {
         className="mr-auto d-flex justify-content-center align-items-center"
         onClick={handlePlayClick}
       >
-        <FaPlay />
+        <FaPlay style={playing ? { color: '#ffffff' } : ''} />
       </Button>
       <div>{track.title}</div>
       <Button
@@ -41,7 +41,7 @@ const TrackCard = ({ track, playing }) => {
         variant="flat"
         name={track._id}
       >
-        <FaPlus />
+        <FaPlus style={playing ? { color: '#ffffff' } : ''} />
       </Button>
     </div>
   );

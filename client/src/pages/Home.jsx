@@ -73,7 +73,7 @@ const Home = () => {
 
   return (
     <Container className="d-flex flex-column align-items-center pt-4">
-      <div className="d-flex">
+      <div className="d-flex mb-4" style={{ height: '15rem' }}>
         <Button variant="flat" className="border" onClick={handleGoBack}>
           <BsFillSkipStartFill />
         </Button>
