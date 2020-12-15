@@ -23,7 +23,7 @@ const TrackCard = ({ track, playing }) => {
 
   return (
     <div
-      className={`d-flex flex-direction-row w-100 border m-2 p-1 ${
+      className={`d-flex flex-direction-row border m-2 p-1 ${
         playing ? 'playing' : ''
       }`}
     >

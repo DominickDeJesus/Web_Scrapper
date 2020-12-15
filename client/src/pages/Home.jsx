@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Container, Button, Tab, Tabs, Pagination } from 'react-bootstrap';
+import { Container, Button, Tab, Pagination, Nav } from 'react-bootstrap';
 import Player from '../components/Player';
 import { AppContext } from '../context/AppContext';
 import TrackCard from '../components/TrackCard';
@@ -83,29 +83,46 @@ const Home = () => {
         </Button>
       </div>
 
-      <Tabs defaultActiveKey="queue" className="w-100">
-        <Tab.Body eventKey="queue" title="Queue" className="w-100">
-          {queue?.map((track, ind) => {
-            if (ind === queuePosition)
-              return <TrackCard track={track} key={ind} playing={true} />;
-            return <TrackCard track={track} key={ind} playing={false} />;
-          })}
-        </Tab.Body>
-        <Tab eventKey="archive" title="Archive" className="w-100">
-          {tracks?.map((track, ind) => {
-            return <TrackCard track={track} key={ind} />;
-          })}
-          <Pagination className="d-flex justify-content-center">
-            <Pagination.Prev
-              onClick={() => {
-                if (page > 1) getPreviousPage();
-              }}
-            />
-            <Pagination.Item active>{page}</Pagination.Item>
-            <Pagination.Next onClick={getNextPage} />
-          </Pagination>
-        </Tab>
-      </Tabs>
+      <Tab.Container defaultActiveKey="queue" className="w-100">
+        <Nav
+          variant="tabs"
+          className="d-flex flex-row flex-start border-0 w-100"
+        >
+          <Nav.Item>
+            <Nav.Link eventKey="queue">Queue</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="archive">Archive</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <Tab.Content className="w-100 mx-0 ">
+          <Tab.Pane eventKey="queue" title="Queue" className="w-100 border-top">
+            {queue?.map((track, ind) => {
+              if (ind === queuePosition)
+                return <TrackCard track={track} key={ind} playing={true} />;
+              return <TrackCard track={track} key={ind} playing={false} />;
+            })}
+          </Tab.Pane>
+          <Tab.Pane
+            eventKey="archive"
+            title="Archive"
+            className="w-100 border-top"
+          >
+            {tracks?.map((track, ind) => {
+              return <TrackCard track={track} key={ind} />;
+            })}
+            <Pagination className="d-flex justify-content-center">
+              <Pagination.Prev
+                onClick={() => {
+                  if (page > 1) getPreviousPage();
+                }}
+              />
+              <Pagination.Item active>{page}</Pagination.Item>
+              <Pagination.Next onClick={getNextPage} />
+            </Pagination>
+          </Tab.Pane>
+        </Tab.Content>
+      </Tab.Container>
     </Container>
   );
 };
