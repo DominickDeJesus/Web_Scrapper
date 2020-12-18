@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
-import { FaPlay, FaPlus } from 'react-icons/fa';
+import { FaPlay, FaPlus, FaPause } from 'react-icons/fa';
 import { AppContext } from '../context/AppContext';
 const TrackCard = ({ track, playing }) => {
   const { tracks, setTracks, queue, setQueue } = useContext(AppContext);
@@ -32,7 +32,11 @@ const TrackCard = ({ track, playing }) => {
         className="mr-auto d-flex justify-content-center align-items-center"
         onClick={handlePlayClick}
       >
-        <FaPlay style={playing ? { color: '#ffffff' } : ''} />
+        {playing ? (
+          <FaPause style={playing ? { color: '#ffffff' } : ''} />
+        ) : (
+          <FaPlay style={playing ? { color: '#ffffff' } : ''} />
+        )}
       </Button>
       <div>{track.title}</div>
       <Button
